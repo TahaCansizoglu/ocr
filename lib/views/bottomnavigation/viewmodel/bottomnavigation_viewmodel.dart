@@ -7,7 +7,8 @@ import '../../../core/constants/navigation_constant.dart';
 
 part 'bottomnavigation_viewmodel.g.dart';
 
-class BottomNavigationViewModel = _BottomNavigationViewModelBase with _$BottomNavigationViewModel;
+class BottomNavigationViewModel = _BottomNavigationViewModelBase
+    with _$BottomNavigationViewModel;
 
 abstract class _BottomNavigationViewModelBase with Store, BaseViewModel {
   @observable
@@ -28,12 +29,7 @@ abstract class _BottomNavigationViewModelBase with Store, BaseViewModel {
   @override
   void setContext(BuildContext context) => this.context = context;
 
-  void init() {
-    //  for (var i = 0; i < 5; i++) {
-    //   BillModel bill = BillModel(null, "category", "amount", "tax", "moneyType", "corporation", "report", "date", "billNo");
-    //   Provider.of<DetailsViewModel>(context!).addList(bill);
-    // }
-  }
+  void init() {}
 
   void addBill() {
     navigation.navigateToPage(path: NavigationConstants.ADD_BILL);

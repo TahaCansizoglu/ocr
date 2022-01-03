@@ -1,1 +1,1 @@
-enum Destination { Home, Details }
+enum Destination { Home, Details, Profile, More }

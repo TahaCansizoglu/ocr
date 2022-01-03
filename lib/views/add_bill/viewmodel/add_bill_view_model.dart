@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:google_ml_vision/google_ml_vision.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
+import 'package:ocrdeneme/core/constants/navigation_constant.dart';
+import 'package:ocrdeneme/core/init/database/database_service.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/base/model/base_view_model.dart';
@@ -66,7 +68,6 @@ abstract class _AddBillViewModelBase with Store, BaseViewModel {
 
     if (_billLines != null) {
       for (var item in _billLines) {
-        print(numericRegex.hasMatch(item));
         if (item.contains("Fis No") ||
             item.contains("FIS NO") ||
             item.contains("FIs NO") ||
@@ -90,7 +91,6 @@ abstract class _AddBillViewModelBase with Store, BaseViewModel {
         if (numericRegex.hasMatch(item)) {
           sayilar.add(item);
         }
-        print(item.contains(numericRegex));
       }
       if (cashTypeController.text.isEmpty) {
         cashTypeController.text = "TL";
@@ -115,9 +115,18 @@ abstract class _AddBillViewModelBase with Store, BaseViewModel {
   }
 
   void addBillToList() {
-    BillModel bill = BillModel(imageFile, "category", "amount", "tax", "moneyType", "corporation", "report", "date", "billNo");
+    BillModel bill = BillModel(
+        category: "category",
+        amount: -125.23,
+        tax: 12,
+        moneyType: "moneyType",
+        corporation: "corporation",
+        report: "report",
+        date: "date",
+        billNo: 25);
     Provider.of<DetailsViewModel>(context!, listen: false).addList(bill);
-    Provider.of<DetailsViewModel>(context!, listen: false).changeText();
+    DatabaseService.instance.insert(bill);
+    navigation.popPage();
   }
 
   void clearControllers() {
@@ -137,10 +146,11 @@ abstract class _AddBillViewModelBase with Store, BaseViewModel {
   @override
   void setContext(BuildContext context) => this.context = context;
   @override
-  void init() {
+  Future<void> init() async {
     if (!isInitiated) {
       _recognizer = GoogleVision.instance.textRecognizer();
       isInitiated = !isInitiated;
+      await DatabaseService.instance.database;
     }
   }
 }

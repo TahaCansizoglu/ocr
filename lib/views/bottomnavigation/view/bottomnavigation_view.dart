@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:ocrdeneme/views/more/view/more_view.dart';
+import 'package:ocrdeneme/views/profile/view/profile_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/base/view/base_view.dart';
@@ -22,7 +24,8 @@ class BottomnavigationView extends StatelessWidget {
           body: Observer(builder: (_) {
             return Scaffold(body: destinator(value.selectedDestination.index));
           }),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
           floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.purple,
             onPressed: () => value.addBill(),
@@ -32,8 +35,10 @@ class BottomnavigationView extends StatelessWidget {
           bottomNavigationBar: FABBottomAppBar(
               items: [
                 FABBottomAppBarItem(iconData: Icons.home, text: 'Home'),
-                FABBottomAppBarItem(iconData: Icons.description_outlined, text: 'Details'),
-                FABBottomAppBarItem(iconData: Icons.account_circle, text: 'Profile'),
+                FABBottomAppBarItem(
+                    iconData: Icons.description_outlined, text: 'Details'),
+                FABBottomAppBarItem(
+                    iconData: Icons.account_circle, text: 'Profile'),
                 FABBottomAppBarItem(iconData: Icons.more_horiz, text: 'More'),
               ],
               centerItemText: "Add Bill",
@@ -48,20 +53,16 @@ class BottomnavigationView extends StatelessWidget {
   Widget destinator(int index) {
     switch (index) {
       case 0:
-        return Consumer<HomeViewModel>(
-          builder: (context, store, child) {
-            return HomeView();
-          },
-        );
+        return HomeView();
       case 1:
         return DetailsView();
+      case 2:
+        return ProfileView();
+      case 3:
+        return MoreView();
 
       default:
-        return Consumer<HomeViewModel>(
-          builder: (context, store, child) {
-            return HomeView();
-          },
-        );
+        return HomeView();
     }
   }
 }

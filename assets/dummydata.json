@@ -1,0 +1,147 @@
+[
+    {
+      "category": "Yemek",
+      "amount": -12.00,
+      "tax": 1,
+      "moneyType": "delectus aut autem",
+      "corporation": "Bir Şey Döner",
+      "report": "delectus aut autem",
+      "date": "delectus aut autem",
+      "billNo": 21,
+      "imageFile":null
+    },
+    {
+      "category": "Yakıt",
+      "amount": -12.0,
+      "tax": 1,
+      "moneyType": "delectus aut autem",
+      "corporation": "Total",
+      "report": "delectus aut autem",
+      "date": "delectus aut autem",
+      "billNo": 21,
+      "imageFile":null
+      
+    },{
+      "category": "Yakıt",
+      "amount": -1221.00,
+      "tax": 1,
+      "moneyType": "delectus aut autem",
+      "corporation": "OPET",
+      "report": "delectus aut autem",
+      "date": "delectus aut autem",
+      "billNo": 21,
+      "imageFile":null
+      
+    },{
+      "category": "Kıyafet",
+      "amount": -1234.00,
+      "tax":2,
+      "moneyType": "delectus aut autem",
+      "corporation": "KOTON",
+      "report": "delectus aut autem",
+      "date": "delectus aut autem",
+      "billNo": 21,
+      "imageFile":null
+      
+    },{
+      "category": "Diğer",
+      "amount": -12000.00,
+      "tax": 1,
+      "moneyType": "delectus aut autem",
+      "corporation": "APPLE",
+      "report": "delectus aut autem",
+      "date": "delectus aut autem",
+      "billNo": 21,
+      "imageFile":null
+      
+    },{
+      "category": "Konaklama",
+      "amount": -1200.00,
+      "tax": 1,
+      "moneyType": "delectus aut autem",
+      "corporation": "Büyük Otel",
+      "report": "delectus aut autem",
+      "date": "delectus aut autem",
+      "billNo": 21,
+      "imageFile":null
+      
+    },{
+      "category": "Diğer",
+      "amount": -12.00,
+      "tax": 1,
+      "moneyType": "delectus aut autem",
+      "corporation": "Kuruluş Yemiş",
+      "report": "delectus aut autem",
+      "date": "delectus aut autem",
+      "billNo": 21,
+      "imageFile":null
+      
+    },{
+      "category": "Diğer",
+      "amount": -12.00,
+      "tax": 1,
+      "moneyType": "delectus aut autem",
+      "corporation": "Donas",
+      "report": "delectus aut autem",
+      "date": "delectus aut autem",
+      "billNo": 21,
+      "imageFile":null
+      
+    },{
+      "category": "Diğer",
+      "amount": 12.00,
+      "tax": 1,
+      "moneyType": "delectus aut autem",
+      "corporation": "Para",
+      "report": "delectus aut autem",
+      "date": "delectus aut autem",
+      "billNo": 21,
+      "imageFile":null
+      
+    },{
+      "category": "Diğer",
+      "amount": 12.00,
+      "tax": 1,
+      "moneyType": "delectus aut autem",
+      "corporation": "Para",
+      "report": "delectus aut autem",
+      "date": "delectus aut autem",
+      "billNo": 21,
+      "imageFile":null
+      
+    },{
+      "category": "Diğer",
+      "amount": 12.13,
+      "tax": 1,
+      "moneyType": "delectus aut autem",
+      "corporation": "Para",
+      "report": "delectus aut autem",
+      "date": "delectus aut autem",
+      "billNo": 21,
+      "imageFile":null
+      
+    },{
+      "category": "Diğer",
+      "amount": 12.00,
+      "tax": 1,
+      "moneyType": "delectus aut autem",
+      "corporation": "Para",
+      "report": "delectus aut autem",
+      "date": "delectus aut autem",
+      "billNo": 21,
+      "imageFile":null
+      
+    },{
+      "category": "Diğer",
+      "amount": 12.12,
+      "tax": 1,
+      "moneyType": "delectus aut autem",
+      "corporation": "Ödenek",
+      "report": "delectus aut autem",
+      "date": "delectus aut autem",
+      "billNo": 21,
+      "imageFile":null
+      
+    }
+
+  ]

@@ -15,8 +15,14 @@ class NavigationService implements INavigationService {
   }
 
   @override
+  void popPage() {
+    navigatorKey.currentState!.pop();
+  }
+
+  @override
   Future<void> navigateToPageClear({required String path, Object? data}) async {
-    await navigatorKey.currentState!.pushNamedAndRemoveUntil(path, removeAllOldRoutes, arguments: data);
+    await navigatorKey.currentState!
+        .pushNamedAndRemoveUntil(path, removeAllOldRoutes, arguments: data);
   }
 
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
