@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
+import 'package:ocrdeneme/views/_product/search/search.dart';
+import 'package:ocrdeneme/views/_product/widgets/listcard/list_card.dart';
+import 'package:ocrdeneme/views/bottomnavigation/viewmodel/bottomnavigation_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/base/view/base_view.dart';
@@ -32,9 +35,8 @@ class DetailsView extends StatelessWidget {
 
   Padding buildFilterRow(BuildContext context, DetailsViewModel value) {
     return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-      child: Observer(builder: (_) {
-        return Row(
+        padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+        child: Row(
           children: [
             Observer(builder: (_) {
               return TextButton(
@@ -63,52 +65,47 @@ class DetailsView extends StatelessWidget {
               );
             }),
             SizedBox(
-              width: context.dynamicWidth(0.29),
+              width: context.dynamicWidth(0.22),
             ),
-            Row(
-              children: [
-                Text("Sort by", style: alata(16, Colors.black)),
-                const Icon(Icons.arrow_drop_down)
-              ],
-            ),
+            DropdownButtonHideUnderline(
+              child: DropdownButton(
+                hint: Text("Sort by"),
+                items: <String>['Low Price', 'High Price', 'Date']
+                    .map<DropdownMenuItem<String>>((String sortType) {
+                  return DropdownMenuItem<String>(
+                    value: sortType,
+                    child: Text(sortType),
+                  );
+                }).toList(),
+                onChanged: (dynamic sortType) {
+                  value.sortList(sortType);
+                },
+              ),
+            )
           ],
-        );
-      }),
-    );
+        ));
   }
 
   Container buildHeader(BuildContext context, DetailsViewModel value) {
     return Container(
-      height: context.dynamicHeight(0.25),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Colors.purple.shade700,
-              Colors.purple.shade600,
-              Colors.purple.shade500,
-              Colors.purple.shade400,
-              Colors.purple.shade300,
-              Colors.purple.shade200,
-              Colors.purple.shade100,
-            ],
-            tileMode: TileMode.mirror),
-        borderRadius: const BorderRadius.only(
+      height: context.dynamicHeight(0.22),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
-        color: Color(0xE04453E2),
+        color: Colors.purple,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
+            color: Colors.grey,
             spreadRadius: 4,
             blurRadius: 4,
-            offset: Offset(0, 3), // changes position of shadow
+            offset: Offset(0, 3),
           ),
         ],
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
               height: context.dynamicHeight(0.04),
@@ -117,20 +114,23 @@ class DetailsView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  value.txt,
+                  "HarBi",
                   style: alata(),
                 ),
-                const Icon(
-                  Icons.search,
+                IconButton(
+                  icon: Icon(Icons.search),
                   color: Colors.white,
+                  onPressed: () {
+                    showSearch(
+                        context: context, delegate: Search(bills: value.list));
+                  },
                 )
               ],
             ),
             SizedBox(
-              height: context.dynamicHeight(0.033),
+              height: context.dynamicHeight(0.003),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -151,7 +151,7 @@ class DetailsView extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: context.dynamicHeight(0.04),
+              height: context.dynamicHeight(0.02),
             ),
             Container(
                 color: Colors.white,
@@ -168,67 +168,23 @@ class DetailsView extends StatelessWidget {
         child: MediaQuery.removePadding(
       context: context,
       removeTop: true,
-      child: Observer(builder: (_) {
-        List<BillModel> data = value.isButtonTextExpenses
-            ? value.expensesList
-            : value.earningsList;
-        return ListView.builder(
-          itemCount: data.length,
-          itemBuilder: (context, index) {
-            print(value.txt);
-
-            return buildListCard(data[index]);
-          },
-        );
-      }),
+      child: RefreshIndicator(
+        onRefresh: () =>
+            Provider.of<BottomNavigationViewModel>(context, listen: false)
+                .fecthData(),
+        child: Observer(builder: (_) {
+          List<BillModel> data = value.isButtonTextExpenses
+              ? value.expensesList
+              : value.earningsList;
+          return ListView.builder(
+            itemCount: data.length,
+            itemBuilder: (context, index) {
+              return ListCard(bill: data[index]);
+            },
+          );
+        }),
+      ),
     ));
-  }
-
-  Container buildListCard(BillModel data) {
-    return Container(
-        margin: EdgeInsets.all(4),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 1,
-              blurRadius: 2,
-              offset: Offset(0, 3), // changes position of shadow
-            ),
-          ],
-        ),
-        child: ListTile(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          tileColor: Colors.white,
-          leading: const CircleAvatar(
-            backgroundColor: Colors.transparent,
-            child: FlutterLogo(),
-          ),
-          trailing: Container(
-            child: Text(
-              "\$" + data.amount.toString(),
-              style: alata(14, data.amount > 0 ? Colors.green : Colors.red),
-            ),
-            margin: const EdgeInsets.all(10.0),
-            padding: const EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                    color: data.amount > 0 ? Colors.green : Colors.red),
-                color: data.amount > 0
-                    ? Colors.green.shade100
-                    : Colors.red.shade100),
-          ),
-          title: Text(data.corporation.toString()),
-          subtitle: Text(data.category.toString()),
-        ));
   }
 
   TextStyle alata([double size = 24, Color color = Colors.white]) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:ocrdeneme/core/base/model/base_view_model.dart';
+import 'package:ocrdeneme/core/base/viewmodel/base_view_model.dart';
 part 'more_viewmodel.g.dart';
 
 class MoreViewModel = _MoreViewModelBase with _$MoreViewModel;

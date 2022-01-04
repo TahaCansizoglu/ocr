@@ -56,31 +56,16 @@ mixin _$DetailsViewModel on _DetailsViewModelBase, Store {
     });
   }
 
-  final _$txtAtom = Atom(name: '_DetailsViewModelBase.txt');
-
-  @override
-  String get txt {
-    _$txtAtom.reportRead();
-    return super.txt;
-  }
-
-  @override
-  set txt(String value) {
-    _$txtAtom.reportWrite(value, super.txt, () {
-      super.txt = value;
-    });
-  }
-
   final _$listAtom = Atom(name: '_DetailsViewModelBase.list');
 
   @override
-  List<BillModel> get list {
+  ObservableList<BillModel> get list {
     _$listAtom.reportRead();
     return super.list;
   }
 
   @override
-  set list(List<BillModel> value) {
+  set list(ObservableList<BillModel> value) {
     _$listAtom.reportWrite(value, super.list, () {
       super.list = value;
     });
@@ -131,6 +116,17 @@ mixin _$DetailsViewModel on _DetailsViewModelBase, Store {
   }
 
   @override
+  void sortList(String type) {
+    final _$actionInfo = _$_DetailsViewModelBaseActionController.startAction(
+        name: '_DetailsViewModelBase.sortList');
+    try {
+      return super.sortList(type);
+    } finally {
+      _$_DetailsViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void addList(BillModel item) {
     final _$actionInfo = _$_DetailsViewModelBaseActionController.startAction(
         name: '_DetailsViewModelBase.addList');
@@ -142,34 +138,11 @@ mixin _$DetailsViewModel on _DetailsViewModelBase, Store {
   }
 
   @override
-  void changeText() {
-    final _$actionInfo = _$_DetailsViewModelBaseActionController.startAction(
-        name: '_DetailsViewModelBase.changeText');
-    try {
-      return super.changeText();
-    } finally {
-      _$_DetailsViewModelBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void addBill() {
-    final _$actionInfo = _$_DetailsViewModelBaseActionController.startAction(
-        name: '_DetailsViewModelBase.addBill');
-    try {
-      return super.addBill();
-    } finally {
-      _$_DetailsViewModelBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 amount: ${amount},
 isOnClick: ${isOnClick},
 isButtonTextExpenses: ${isButtonTextExpenses},
-txt: ${txt},
 list: ${list},
 expensesList: ${expensesList},
 earningsList: ${earningsList}

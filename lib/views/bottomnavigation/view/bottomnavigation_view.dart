@@ -28,7 +28,7 @@ class BottomnavigationView extends StatelessWidget {
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.purple,
-            onPressed: () => value.addBill(),
+            onPressed: () => value.getBillPage(),
             tooltip: 'Create',
             child: const Icon(Icons.add),
           ),

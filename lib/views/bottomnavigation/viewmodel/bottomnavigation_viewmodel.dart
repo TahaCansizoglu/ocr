@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:ocrdeneme/core/init/database/database_service.dart';
+import 'package:ocrdeneme/core/models/bill_model/bill_model.dart';
+import 'package:ocrdeneme/views/details/viewmodel/details_viewmodel.dart';
+import 'package:provider/provider.dart';
 
-import '../../../core/base/model/base_view_model.dart';
+import '../../../core/base/viewmodel/base_view_model.dart';
 import '../../../core/constants/enum/destination.dart';
 import '../../../core/constants/navigation_constant.dart';
 
@@ -28,10 +32,16 @@ abstract class _BottomNavigationViewModelBase with Store, BaseViewModel {
 
   @override
   void setContext(BuildContext context) => this.context = context;
+  Future<void> fecthData() async {
+    List<BillModel> tmp = await DatabaseService.instance.getBills();
+    Provider.of<DetailsViewModel>(context!, listen: false).addListAll(tmp);
+  }
 
-  void init() {}
+  Future<void> init() async {
+    await fecthData();
+  }
 
-  void addBill() {
+  void getBillPage() {
     navigation.navigateToPage(path: NavigationConstants.ADD_BILL);
   }
 }

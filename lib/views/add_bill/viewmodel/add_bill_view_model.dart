@@ -9,7 +9,7 @@ import 'package:ocrdeneme/core/constants/navigation_constant.dart';
 import 'package:ocrdeneme/core/init/database/database_service.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/base/model/base_view_model.dart';
+import '../../../core/base/viewmodel/base_view_model.dart';
 import '../../../core/models/bill_model/bill_model.dart';
 import '../../details/viewmodel/details_viewmodel.dart';
 
@@ -116,16 +116,16 @@ abstract class _AddBillViewModelBase with Store, BaseViewModel {
 
   void addBillToList() {
     BillModel bill = BillModel(
-        category: "category",
-        amount: -125.23,
+        category: "Yazılım",
+        amount: -105.23,
         tax: 12,
         moneyType: "moneyType",
-        corporation: "corporation",
+        corporation: "Piton",
         report: "report",
         date: "date",
         billNo: 25);
-    Provider.of<DetailsViewModel>(context!, listen: false).addList(bill);
     DatabaseService.instance.insert(bill);
+    Provider.of<DetailsViewModel>(context!, listen: false).addList(bill);
     navigation.popPage();
   }
 
@@ -150,7 +150,6 @@ abstract class _AddBillViewModelBase with Store, BaseViewModel {
     if (!isInitiated) {
       _recognizer = GoogleVision.instance.textRecognizer();
       isInitiated = !isInitiated;
-      await DatabaseService.instance.database;
     }
   }
 }

@@ -27,7 +27,7 @@ class DatabaseService implements IDatabaseService {
         version: _version,
         onCreate: (db, version) {
           return db.execute(
-            "CREATE TABLE $_tableName(id INTEGER PRIMARY KEY AUTOINCREMENT, category STRING, amount REAL, tax INTEGER, moneyType STRING, corporation STRING, report STRING, date STRING, billNo INTEGER,)",
+            "CREATE TABLE $_tableName(id INTEGER PRIMARY KEY AUTOINCREMENT, category STRING, amount REAL, tax INTEGER, moneyType STRING, corporation STRING, report STRING, date STRING, billNo INTEGER)",
           );
         },
       );
@@ -37,9 +37,9 @@ class DatabaseService implements IDatabaseService {
     }
   }
 
-  Future<List<BillModel>> getTasks() async {
-    List<Map<String, dynamic>> tasks = await _db!.query('tasks');
-    return tasks.map((data) => BillModel.fromJson(data)).toList();
+  Future<List<BillModel>> getBills() async {
+    List<Map<String, dynamic>> bills = await _db!.query('bills');
+    return bills.map((data) => BillModel.fromJson(data)).toList();
   }
 
   Future<int> insert(BillModel bill) async {
@@ -57,10 +57,5 @@ class DatabaseService implements IDatabaseService {
 
   Future<List<Map<String, dynamic>>> query() async {
     return await _db!.query(_tableName);
-  }
-
-  Future<int> update(int id) async {
-    return await _db!.rawUpdate(
-        ''' UPDATE tasks SET isCompleted = ? WHERE id = ? ''', [1, id]);
   }
 }

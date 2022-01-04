@@ -13,8 +13,9 @@ import 'views/bottomnavigation/viewmodel/bottomnavigation_viewmodel.dart';
 import 'views/details/viewmodel/details_viewmodel.dart';
 import 'views/home/viewmodel/home_viewmodel.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DatabaseService.instance.database;
 
   runApp(const MyApp());
 }

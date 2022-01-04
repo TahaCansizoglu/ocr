@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:ocrdeneme/core/base/model/base_view_model.dart';
+import 'package:ocrdeneme/core/base/viewmodel/base_view_model.dart';
 part 'profile_viewmodel.g.dart';
 
 class ProfileViewModel = _ProfileViewModelBase with _$ProfileViewModel;

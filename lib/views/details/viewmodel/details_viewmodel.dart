@@ -5,7 +5,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../core/base/model/base_view_model.dart';
+import '../../../core/base/viewmodel/base_view_model.dart';
 import '../../../core/constants/navigation_constant.dart';
 import '../../../core/models/bill_model/bill_model.dart';
 
@@ -22,11 +22,9 @@ abstract class _DetailsViewModelBase with Store, BaseViewModel {
 
   @observable
   bool isButtonTextExpenses = true;
-  @observable
-  String txt = "Deneme";
 
   @observable
-  List<BillModel> list = [];
+  ObservableList<BillModel> list = ObservableList();
   @observable
   ObservableList<BillModel> expensesList = ObservableList();
   @observable
@@ -44,28 +42,38 @@ abstract class _DetailsViewModelBase with Store, BaseViewModel {
   }
 
   @action
+  void sortList(String type) {
+    if (type == "Low Price") {
+      isButtonTextExpenses
+          ? expensesList.sort((a, b) => b.amount.compareTo(a.amount))
+          : earningsList.sort((a, b) => a.amount.compareTo(b.amount));
+    } else if (type == "High Price") {
+      isButtonTextExpenses
+          ? expensesList.sort((a, b) => a.amount.compareTo(b.amount))
+          : earningsList.sort((a, b) => b.amount.compareTo(a.amount));
+    } else {}
+  }
+
+  @action
   void addList(BillModel item) {
-    expensesList.add(item);
+    list.add(item);
     amount += item.amount;
+    parseList();
   }
 
-  @action
-  void changeText() {
-    txt = "dasdasd";
+  void addListAll(List<BillModel> items) {
+    list.clear();
+    list.addAll(items);
+    parseList();
   }
 
-  @action
-  void addBill() {
-    SchedulerBinding.instance!.addPostFrameCallback((_) {
-      navigation.navigateToPage(path: NavigationConstants.ADD_BILL);
-    });
-  }
-
-  Future<void> loadLocalJson() async {
-    const String localJsonPath = 'assets/dummydata.json';
-    var dummyData = await rootBundle.loadString(localJsonPath);
-    List<dynamic> decodedJson = json.decode(dummyData);
-    list = decodedJson.map((user) => BillModel.fromJson(user)).toList();
+  Future<void> parseList() async {
+    // const String localJsonPath = 'assets/dummydata.json';
+    // var dummyData = await rootBundle.loadString(localJsonPath);
+    // List<dynamic> decodedJson = json.decode(dummyData);
+    // list = decodedJson.map((user) => BillModel.fromJson(user)).toList();
+    expensesList.clear();
+    earningsList.clear();
     expensesList.addAll(list.where((element) => element.amount < 0).toList());
     earningsList.addAll(list.where((element) => element.amount > 0).toList());
   }
@@ -77,7 +85,7 @@ abstract class _DetailsViewModelBase with Store, BaseViewModel {
   @override
   void init() {
     if (!isInitialized) {
-      // loadLocalJson();
+      //loadLocalJson();
 
       isInitialized = !isInitialized;
     }
