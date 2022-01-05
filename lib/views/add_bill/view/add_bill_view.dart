@@ -21,87 +21,91 @@ class _AddBillPageState extends State<AddBillView> {
           model.setContext(context);
           model.init();
         },
-        onPageBuilder: (BuildContext context, AddBillViewModel value) =>
-            Scaffold(
-                appBar: AppBar(
-                  backgroundColor: Colors.purple,
-                  actions: [
-                    IconButton(
-                        onPressed: () => value.addBillToList(),
-                        icon: Icon(Icons.done))
-                  ],
-                ),
-                body: SingleChildScrollView(
-                  child: Observer(builder: (_) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: context.dynamicHeight(0.01),
-                        ),
-                        Observer(builder: (_) {
-                          return Container(
-                              width: context.dynamicWidth(0.5),
-                              height: context.dynamicHeight(0.25),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: value.imageFile == null
-                                          ? Image.asset(
-                                                  "assets/images/avatar.png")
-                                              .image
-                                          : Image.file(value.imageFile!)
-                                              .image)));
-                        }),
-                        SizedBox(
-                          height: context.dynamicHeight(0.005),
-                        ),
-                        Row(
-                          children: [
-                            //buildTextInputField("Kategori", "Yiyecek", null),
-                            SizedBox(
-                              width: context.dynamicWidth(0.32),
-                            ),
-                            IconButton(
-                                onPressed: () =>
-                                    value.getAndScanImage(ImageSource.gallery),
-                                icon: const Icon(Icons.photo_library_outlined)),
-                            IconButton(
-                                onPressed: () =>
-                                    value.getAndScanImage(ImageSource.camera),
-                                icon: const Icon(Icons.camera_alt_outlined)),
-                            IconButton(
-                                onPressed: () {
-                                  value.imageFile = null;
-                                },
-                                icon: const Icon(Icons.delete)),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            buildTextInputField(
-                                "Tutar", "", value.amountController),
-                            buildTextInputField("KDV", "", value.taxController),
-                          ],
-                        ),
-                        buildTextInputWithouExpanded("Para Birimi", "",
-                            value.cashTypeController, TextInputType.text),
-                        buildTextInputWithouExpanded("Kurum", "",
-                            value.corporationController, TextInputType.text),
-                        buildTextInputWithouExpanded(
-                            "Rapor", "", null, TextInputType.text),
-                        buildTextInputWithouExpanded("Tarih", "",
-                            value.dateController, TextInputType.datetime),
-                        buildTextInputWithouExpanded("Fiş No", "",
-                            value.billNoController, TextInputType.number),
-                        const Text(
-                            "*Fişden okunamayan veya yanlış olan kısımları elle yazınız.")
-                      ],
-                    );
-                  }),
-                )));
+        onPageBuilder: (BuildContext context, AddBillViewModel value) => Hero(
+              tag: "/addBill",
+              child: Scaffold(
+                  appBar: AppBar(
+                    backgroundColor: Colors.purple,
+                    actions: [
+                      IconButton(
+                          onPressed: () => value.addBillToList(),
+                          icon: Icon(Icons.done))
+                    ],
+                  ),
+                  body: SingleChildScrollView(
+                    child: Observer(builder: (_) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: context.dynamicHeight(0.01),
+                          ),
+                          Observer(builder: (_) {
+                            return Container(
+                                width: context.dynamicWidth(0.5),
+                                height: context.dynamicHeight(0.25),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: value.imageFile == null
+                                            ? Image.asset(
+                                                    "assets/images/avatar.png")
+                                                .image
+                                            : Image.file(value.imageFile!)
+                                                .image)));
+                          }),
+                          SizedBox(
+                            height: context.dynamicHeight(0.005),
+                          ),
+                          Row(
+                            children: [
+                              //buildTextInputField("Kategori", "Yiyecek", null),
+                              SizedBox(
+                                width: context.dynamicWidth(0.32),
+                              ),
+                              IconButton(
+                                  onPressed: () => value
+                                      .getAndScanImage(ImageSource.gallery),
+                                  icon:
+                                      const Icon(Icons.photo_library_outlined)),
+                              IconButton(
+                                  onPressed: () =>
+                                      value.getAndScanImage(ImageSource.camera),
+                                  icon: const Icon(Icons.camera_alt_outlined)),
+                              IconButton(
+                                  onPressed: () {
+                                    value.imageFile = null;
+                                  },
+                                  icon: const Icon(Icons.delete)),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              buildTextInputField(
+                                  "Tutar", "", value.amountController),
+                              buildTextInputField(
+                                  "KDV", "", value.taxController),
+                            ],
+                          ),
+                          buildTextInputWithouExpanded("Para Birimi", "",
+                              value.cashTypeController, TextInputType.text),
+                          buildTextInputWithouExpanded("Kurum", "",
+                              value.corporationController, TextInputType.text),
+                          buildTextInputWithouExpanded(
+                              "Rapor", "", null, TextInputType.text),
+                          buildTextInputWithouExpanded("Tarih", "",
+                              value.dateController, TextInputType.datetime),
+                          buildTextInputWithouExpanded("Fiş No", "",
+                              value.billNoController, TextInputType.number),
+                          const Text(
+                              "*Fişden okunamayan veya yanlış olan kısımları elle yazınız.")
+                        ],
+                      );
+                    }),
+                  )),
+            ));
   }
 
   Container buildTextInputWithouExpanded(String title, String hint,

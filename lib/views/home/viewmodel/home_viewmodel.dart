@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:rect_getter/rect_getter.dart';
 import '../../../core/base/viewmodel/base_view_model.dart';
 part 'home_viewmodel.g.dart';
 

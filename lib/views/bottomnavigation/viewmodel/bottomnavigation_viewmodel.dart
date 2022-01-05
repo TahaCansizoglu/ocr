@@ -4,6 +4,7 @@ import 'package:ocrdeneme/core/init/database/database_service.dart';
 import 'package:ocrdeneme/core/models/bill_model/bill_model.dart';
 import 'package:ocrdeneme/views/details/viewmodel/details_viewmodel.dart';
 import 'package:provider/provider.dart';
+import 'package:rect_getter/rect_getter.dart';
 
 import '../../../core/base/viewmodel/base_view_model.dart';
 import '../../../core/constants/enum/destination.dart';
@@ -15,7 +16,6 @@ class BottomNavigationViewModel = _BottomNavigationViewModelBase
     with _$BottomNavigationViewModel;
 
 abstract class _BottomNavigationViewModelBase with Store, BaseViewModel {
-  @observable
   int number = 0;
   static const List<Destination> destinations = Destination.values;
 

@@ -17,21 +17,6 @@ mixin _$BottomNavigationViewModel on _BottomNavigationViewModelBase, Store {
               name: '_BottomNavigationViewModelBase.selectedDestination'))
       .value;
 
-  final _$numberAtom = Atom(name: '_BottomNavigationViewModelBase.number');
-
-  @override
-  int get number {
-    _$numberAtom.reportRead();
-    return super.number;
-  }
-
-  @override
-  set number(int value) {
-    _$numberAtom.reportWrite(value, super.number, () {
-      super.number = value;
-    });
-  }
-
   final _$selectedDestinationIndexAtom =
       Atom(name: '_BottomNavigationViewModelBase.selectedDestinationIndex');
 
@@ -66,7 +51,6 @@ mixin _$BottomNavigationViewModel on _BottomNavigationViewModelBase, Store {
   @override
   String toString() {
     return '''
-number: ${number},
 selectedDestinationIndex: ${selectedDestinationIndex},
 selectedDestination: ${selectedDestination}
     ''';

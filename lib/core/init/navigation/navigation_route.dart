@@ -22,7 +22,7 @@ class NavigationRoute {
       case NavigationConstants.HOME:
         return normalNavigate(HomeView(), NavigationConstants.HOME);
       case NavigationConstants.ADD_BILL:
-        return normalNavigate(AddBillView(), NavigationConstants.ADD_BILL);
+        return animetedNavigate(AddBillView(), NavigationConstants.ADD_BILL);
       case NavigationConstants.DETAILS:
         return normalNavigate(DetailsView(), NavigationConstants.DETAILS);
       case NavigationConstants.PROFILE:
@@ -42,5 +42,16 @@ class NavigationRoute {
         builder: (context) => widget,
         //analytciste görülecek olan sayfa ismi için pageName veriyoruz
         settings: RouteSettings(name: pageName));
+  }
+
+  PageRouteBuilder animetedNavigate(Widget widget, String pageName) {
+    return PageRouteBuilder(
+      settings: RouteSettings(name: pageName),
+      transitionDuration: Duration(milliseconds: 1000),
+      pageBuilder: (context, animation1, animation2) => widget,
+      transitionsBuilder: (context, animation1, animation2, child) {
+        return FadeTransition(opacity: animation1, child: child);
+      },
+    );
   }
 }

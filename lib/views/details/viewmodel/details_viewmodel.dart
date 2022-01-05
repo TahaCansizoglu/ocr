@@ -64,10 +64,10 @@ abstract class _DetailsViewModelBase with Store, BaseViewModel {
   void addListAll(List<BillModel> items) {
     list.clear();
     list.addAll(items);
-    parseList();
+     parseList();
   }
 
-  Future<void> parseList() async {
+  void parseList() {
     // const String localJsonPath = 'assets/dummydata.json';
     // var dummyData = await rootBundle.loadString(localJsonPath);
     // List<dynamic> decodedJson = json.decode(dummyData);
